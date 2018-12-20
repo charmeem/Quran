@@ -9,21 +9,23 @@
 
     <hr>
     <div class="row">
+        <div class="col-md-12">
+        <form method="post"  class="row form" action="{{route('post.update', $post->id)}}">
+            @method('PUT')
+            @csrf
         <div class="col-md-8">
-
-            <form method="post" data-parsley-validate="true" action="{{route('post.update', $post->id)}}">
-                @csrf
                 <div class="form-group">
                     <label name="title">Title:</label>
                     <input id="title" type='text' name="title" class="form-control" maxlength="50" required="true" value="{{old('title', $post->title)}}">
                 </div>
+            <div class="form-group">
+                <label name="slug">Slug:</label>
+                <textarea id="slug" name="slug" class="form-control" required="true" >{{old('slug', $post->slug)}}</textarea>
+            </div>
                 <div class="form-group">
                     <label name="body">Content:</label>
                     <textarea id="body" name="body" class="form-control" required="true" >{{old('body', $post->body)}}</textarea>
                 </div>
-
-            </form>
-
         </div>
 
         <div class="col-md-4">
@@ -43,11 +45,14 @@
                         <a href="{{route('post.show', [$post->id])}}" class="btn btn-danger btn-block">Cancel</a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{route('post.update', [$post->id])}}" class="btn btn-success btn-block">Save</a>
+                        <input type="submit" value="Save me" class="btn btn-success btn-block">
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- top row -->
+
+    </form>
+    </div> <!-- col-12 -->
+ </div> <!-- top row -->
 
 @stop

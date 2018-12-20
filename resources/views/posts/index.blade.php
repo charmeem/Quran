@@ -33,7 +33,12 @@
                     </tr>
                 @endforeach
             </tbody>
-
         </table>
+
+    <!-- Implementing Pagination -->
+    <div class="text-center">
+        {!! $posts->links() !!}
+    </div>
+
     </div>
 @stop  <!-- endsection can also be used here -->

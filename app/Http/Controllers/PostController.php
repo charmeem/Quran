@@ -15,7 +15,10 @@ class PostController extends Controller
     public function index()
     {
         //Create a variable and store all post in it
-        $posts= Post::all();
+//        $posts= Post::all();
+
+        // Testing Pagination with latest post on the top
+        $posts=Post::orderBy('id', 'desc')->paginate(3);
 
         //Redirect to view and pass in the above variable
         return view('posts.index')->withPosts($posts);
@@ -43,7 +46,8 @@ class PostController extends Controller
         //Validate the request
         $this->validate($request,[
             'title'=>'required|max:255',
-            'body' =>'required'
+            'body' =>'required',
+            'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug'
             ]);
 
         // Store into database
@@ -51,6 +55,7 @@ class PostController extends Controller
 
         $post->title = $request->title;
         $post->body = $request->body;
+        $post->slug = $request->slug;
 
         $post->save();
 
@@ -97,7 +102,32 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $post=Post::find($id);
+      if($request->input('slug') === $post->slug) {
+        // Validate the form input data ohne slug
+        $this->validate($request,[
+            'title'=>'required|max:255',
+            'body' =>'required',
+        ]);
+    } else {
+         // Validate the form input data mit slug
+         $this->validate($request,[
+          'title'=>'required|max:255',
+         'body' =>'required',
+          'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug'
+         ]);
+    }
+        // Save the input form data in the databse
+        $post = Post::find($id);
+
+        $post->title= $request->input('title');
+        $post->body = $request->input('body');
+        $post->slug = $request->input('slug');
+        $post->save();
+        // Prepare flash message
+        Session::flash('success','The Post was saved successfully!');
+        // Redirect the page back to the show page
+        return redirect()->route('post.show', $post->id );
     }
 
     /**
@@ -108,6 +138,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post=POST::find($id);
+        $post->delete();
+
+        return redirect()->route('post.index');
     }
 }

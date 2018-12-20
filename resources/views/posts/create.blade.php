@@ -23,6 +23,10 @@
                     <input id="title" type='text' name="title" class="form-control" maxlength="50" required="true">
                 </div>
 
+                <div class="form-group">
+                    <label name="slug">Slug:</label>
+                    <input id="slug" type='text' name="slug" class="form-control" maxlength="255" required="true">
+                </div>
 
                 <div class="form-group">
                     <label name="body">Content:</label>

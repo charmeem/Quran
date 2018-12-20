@@ -11,24 +11,23 @@
 |
 */
 
+Route::group(['middleware'=>['web']], function(){
 
-Route::get('/', function () {
-    return view('pages/home');
+    Route::get('/', 'PagesController@getIndex');
+
+    /* Route for blog with slugs*/
+    Route::get('blog/{slug}', ['as' => 'blog.single', 'uses' => 'BlogController@getSingle'])
+            ->where('slug', '[\w\d\-\_]+');
+
+    /* Routes to pages linked from Navbar */
+
+    Route::get('/contact', 'PagesController@getContact');
+
+    Route::get('/faq', 'PagesController@getFaq');
+
+    Route::get('/categories', 'PagesController@getCategories');
+
+    //Creating routes automatically for /post url for all the functions in the PostController
+    Route::resource('post', 'PostController');
+
 });
-
-
-/* Routes to pages linked from Navbar */
-
-Route::get('/contact', function() {
-    return view('pages.contact');
-});
-
-Route::get('/faq', function() {
-    return view('pages.faq');
-});
-Route::get('/categories', function() {
-    return view('pages.categories');
-});
-
-//Creating routes automatically for /post url for all the functions in the PostController
-Route::resource('post', 'PostController');

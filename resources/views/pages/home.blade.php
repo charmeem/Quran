@@ -21,35 +21,13 @@
 
         <div class="row">
             <div class="col-md-8">
+            @foreach($posts as $post)
+                <h3>{{$post->title}}</h3>
+                <p>{{substr($post->body, 0, 300)}}{{strlen($post->body) > 300 ? ". . ." : ""}}</p>
+                <a href="{{route('blog.single', $post->slug)}}" class="btn btn-primary">Continue reading</a>
+                <hr>
+            @endforeach
 
-                <h3>Post Title</h3>
-                <p>Vivamus gravida massa nec eleifend pretium. Donec cursus non urna ultrices dapibus.
-                    Vivamus tincidunt, ante et tristique gravida, tellus turpis efficitur sem, eu cursus quam nisi a massa.
-                    Duis aliquet sapien lectus, vulputate vulputate nisl porttitor a.
-                    Ut lorem arcu, sagittis id lorem quis, mattis auctor est...</p>
-                <a href="" class="btn btn-primary">Continue reading</a>
-                <hr>
-                <h3>Post Title</h3>
-                <p>Vivamus gravida massa nec eleifend pretium. Donec cursus non urna ultrices dapibus.
-                    Vivamus tincidunt, ante et tristique gravida, tellus turpis efficitur sem, eu cursus quam nisi a massa.
-                    Duis aliquet sapien lectus, vulputate vulputate nisl porttitor a.
-                    Ut lorem arcu, sagittis id lorem quis, mattis auctor est...</p>
-                <a href="" class="btn btn-primary">Continue reading</a>
-                <hr>
-                <h3>Post Title</h3>
-                <p>Vivamus gravida massa nec eleifend pretium. Donec cursus non urna ultrices dapibus.
-                    Vivamus tincidunt, ante et tristique gravida, tellus turpis efficitur sem, eu cursus quam nisi a massa.
-                    Duis aliquet sapien lectus, vulputate vulputate nisl porttitor a.
-                    Ut lorem arcu, sagittis id lorem quis, mattis auctor est...</p>
-                <a href="" class="btn btn-primary">Continue reading</a>
-                <hr>
-                <h3>Post Title</h3>
-                <p>Vivamus gravida massa nec eleifend pretium. Donec cursus non urna ultrices dapibus.
-                    Vivamus tincidunt, ante et tristique gravida, tellus turpis efficitur sem, eu cursus quam nisi a massa.
-                    Duis aliquet sapien lectus, vulputate vulputate nisl porttitor a.
-                    Ut lorem arcu, sagittis id lorem quis, mattis auctor est...</p>
-                <a href="" class="btn btn-primary">Continue reading</a>
-                <hr>
 
             </div>
 
