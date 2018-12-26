@@ -29,11 +29,20 @@
                 </div>
 
                 <div class="form-group">
+                    <label name="category_id">Category:</label>
+                    <select class="form-control" name="category_id">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+               </div>
+
+                <div class="form-group">
                     <label name="body">Content:</label>
                     <textarea id="body" name="body" class="form-control" required="true"></textarea>
                 </div>
 
-                <input type="submit" class="btn btn-success" value ="Send Message">
+                <input type="submit" class="btn btn-success" value ="Enter">
 
             </form>
         </div>

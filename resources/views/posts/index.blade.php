@@ -29,7 +29,10 @@
                         <td>{{$post->title}}</td>
                         <td>{{substr($post->body, 0, 50)}}{{strlen($post->body) > 50 ? " ...." : ""}}</td>
                         <td>{{date('M j,Y', strtotime($post->created_at))}}</td>
-                        <td><a href="{{route('post.show', $post->id)}}" class="btn btn-success btn-sm">View</a> <a href="" class="btn btn-sm">Edit</a></td>
+                        <td>
+                            <a href="{{route('post.show', $post->id)}}" class="btn btn-success btn-sm">View</a>
+                            <a href="{{route('post.edit', $post->id)}}" class="btn btn-sm">Edit</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

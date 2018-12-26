@@ -14,4 +14,10 @@ class BlogController extends Controller
         // Return the view
         return view('blog.single')->withPost($post);
     }
+
+    // Get blog list
+    public function getIndex() {
+        $posts = Post::paginate(3);
+        return view('blog.index')->withPosts($posts);
+    }
 }

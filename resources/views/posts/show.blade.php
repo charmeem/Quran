@@ -22,6 +22,11 @@
                 </dl>
 
                 <dl classs="dl-horizontal">
+                    <dt>Category:</dt>
+                    <dd>{{$post->category->name}}</dd>
+                </dl>
+
+                <dl classs="dl-horizontal">
                     <dt>Created at:</dt>
                     <dd>{{$post->created_at}}</dd>
                 </dl>

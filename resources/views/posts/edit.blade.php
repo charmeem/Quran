@@ -18,10 +18,24 @@
                     <label name="title">Title:</label>
                     <input id="title" type='text' name="title" class="form-control" maxlength="50" required="true" value="{{old('title', $post->title)}}">
                 </div>
-            <div class="form-group">
-                <label name="slug">Slug:</label>
-                <textarea id="slug" name="slug" class="form-control" required="true" >{{old('slug', $post->slug)}}</textarea>
-            </div>
+
+                <div class="form-group">
+                    <label name="slug">Slug:</label>
+                    <textarea id="slug" name="slug" class="form-control" required="true" >{{old('slug', $post->slug)}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label name="category_id">Category:</label>
+                    <select name="category_id" class="form-control">
+
+                        <!-- Took some time eto find below solution thanks to laracast -->
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}" {{$selected==$category->id ? 'selected="selected"': ''}}> {{$category->name}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label name="body">Content:</label>
                     <textarea id="body" name="body" class="form-control" required="true" >{{old('body', $post->body)}}</textarea>

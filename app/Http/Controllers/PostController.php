@@ -1,12 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
+    /**
+     * Only Authenticated Users are allowed to access these resources.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +44,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create')->withCategories($categories);
     }
 
     /**
@@ -47,7 +61,8 @@ class PostController extends Controller
         $this->validate($request,[
             'title'=>'required|max:255',
             'body' =>'required',
-            'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug'
+            'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug',
+            'category_id' => 'required|max:255'
             ]);
 
         // Store into database
@@ -56,6 +71,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         $post->slug = $request->slug;
+        $post->category_id = $request->category_id;
 
         $post->save();
 
@@ -90,7 +106,10 @@ class PostController extends Controller
     public function edit($id)
     {
         $post=Post::find($id);
-        return view('posts.edit', compact('post'));
+        $selected = $post->category_id;
+        $categories = Category::all();
+
+        return view('posts.edit', compact('post', 'categories', 'selected'));
     }
 
     /**
@@ -107,13 +126,15 @@ class PostController extends Controller
         // Validate the form input data ohne slug
         $this->validate($request,[
             'title'=>'required|max:255',
+            'category_id'=>'required|integer',
             'body' =>'required',
         ]);
     } else {
          // Validate the form input data mit slug
          $this->validate($request,[
           'title'=>'required|max:255',
-         'body' =>'required',
+          'category_id'=>'required|integer',
+          'body' =>'required',
           'slug' =>'required|alpha_dash|min:5|max:255|unique:posts,slug'
          ]);
     }
@@ -121,9 +142,11 @@ class PostController extends Controller
         $post = Post::find($id);
 
         $post->title= $request->input('title');
+        $post->category_id = $request->input('category_id');
         $post->body = $request->input('body');
         $post->slug = $request->input('slug');
         $post->save();
+
         // Prepare flash message
         Session::flash('success','The Post was saved successfully!');
         // Redirect the page back to the show page
