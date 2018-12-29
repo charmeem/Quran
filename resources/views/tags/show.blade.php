@@ -10,6 +10,13 @@
     <div class="col-md-2">
         <a href="{{route('tags.edit', $tag)}}" class="btn btn-primary">Edit</a>
     </div>
+    <div class="col-md-2">
+        <form action="{{route('tags.destroy', $tag)}}" class="form" method="POST">
+            @method('DELETE')
+            <input type="submit" value="Delete" class="btn btn-danger">
+            @csrf
+        </form>
+    </div>
 </div>
 
 <div class="row">

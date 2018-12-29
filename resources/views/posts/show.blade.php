@@ -13,9 +13,9 @@
             <h3>{{$post->title}}</h3>
             <p class="lead">{{$post->body}} </p>
             <hr>
-            <div class="tags">
+            <div class="tags my-5">
             @foreach($post->tags as $tag)
-                <span class="badge badge-dark">{{$tag->name}}</span>
+                <span class="badge badge-dark"><a style="text-decoration: none" href="{{route('tags.show', $tag)}}">{{$tag->name}}</a></span>
             @endforeach
             </div>
         </div>
