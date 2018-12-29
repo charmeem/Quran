@@ -11,5 +11,4 @@
     <!-- Our own Common stylesheet -->
     <link type="text/css" rel="stylesheet" href="{{asset('css/styles.css')}}">
 
-
 </head>

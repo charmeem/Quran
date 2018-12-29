@@ -12,6 +12,12 @@
         <div class="col-md-8">
             <h3>{{$post->title}}</h3>
             <p class="lead">{{$post->body}} </p>
+            <hr>
+            <div class="tags">
+            @foreach($post->tags as $tag)
+                <span class="badge badge-dark">{{$tag->name}}</span>
+            @endforeach
+            </div>
         </div>
 
         <div class="col-md-4">

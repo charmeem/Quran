@@ -23,6 +23,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{route('post.index')}}">Posts</a>
                         <a class="dropdown-item" href="{{route('categories.index')}}">Categories</a>
+                        <a class="dropdown-item" href="{{route('tags.index')}}">Tags</a>
                         <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
                         @csrf
                     </div>

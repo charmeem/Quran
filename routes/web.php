@@ -44,3 +44,6 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 /* Categories Route except create route*/
 Route::resource('categories', 'CategoryController', ['except'=>['create']]);
+
+/* Tags Route except create route*/
+Route::resource('tags', 'TagController', ['except'=>['create']]);

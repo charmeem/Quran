@@ -2,6 +2,12 @@
 
 @section ('title', '| Edit Post')
 
+<!-- Adding client side js based form validation + select options plugin-->
+@section('styles')
+    <link rel="stylesheet" href="{{asset('css/parsley.css')}}">
+    <link type="text/css" rel="stylesheet" href="{{asset('css/select2.min.css')}}">
+@endsection
+
 @section ('content')
     <div class="jumbotron">
         <h2>learn the Secrets of Success through Quran</h2>
@@ -28,13 +34,24 @@
                     <label name="category_id">Category:</label>
                     <select name="category_id" class="form-control">
 
-                        <!-- Took some time eto find below solution thanks to laracast -->
+                        <!-- Took some time to find below solution thanks to laracast -->
                         @foreach($categories as $category)
-                            <option value="{{$category->id}}" {{$selected==$category->id ? 'selected="selected"': ''}}> {{$category->name}}</option>
+                            <option value="{{$category->id}}" {{$selcat==$category->id ? 'selected="selected"': ''}}> {{$category->name}}</option>
                         @endforeach
 
                     </select>
                 </div>
+
+            <div class="form-group">
+                <label name="tags">Tags:</label>
+                <select class="select2-multi form-control" name="tags[]" multiple="multiple">
+
+                    <!-- Took some time to find below solution thanks to laracast -->
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}" }}>{{$tag->name}}</option>
+                    @endforeach
+                </select>
+            </div>
 
                 <div class="form-group">
                     <label name="body">Content:</label>
@@ -70,3 +87,13 @@
  </div> <!-- top row -->
 
 @stop
+
+<!-- client side js form validation plugin + Selecxt list Jquery plugin-->
+@section('scripts')
+    <script language="javascript" src="{{asset('js/select2.min.js')}}"></script>
+    <script type="text/javascript">
+        $('.select2-multi').select2();
+        //Adding script to get old tag values set
+        $('.select2-multi').select2().val({!! json_encode($post->tags()->allRelatedIds()) !!}).trigger('change');
+    </script>
+@endsection

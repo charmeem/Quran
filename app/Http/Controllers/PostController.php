@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -45,8 +46,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-
-        return view('posts.create')->withCategories($categories);
+        $tags = Tag::all();
+        return view('posts.create')->withCategories($categories)->withTags($tags);
     }
 
     /**
@@ -57,6 +58,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         //Validate the request
         $this->validate($request,[
             'title'=>'required|max:255',
@@ -74,6 +76,9 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
 
         $post->save();
+
+        /* Storing the tags that are coming in create post Request */
+        $post->tags()->sync($request->tags, false);
 
         // Using Sessions, print flash messages
         Session::flash('success', 'The post is succesfully saved! ');
@@ -106,10 +111,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post=Post::find($id);
-        $selected = $post->category_id;
+        $selcat = $post->category_id;
         $categories = Category::all();
+        $tags=Tag::all();
 
-        return view('posts.edit', compact('post', 'categories', 'selected'));
+        return view('posts.edit', compact('post', 'categories', 'selcat', 'tags'));
     }
 
     /**
@@ -139,13 +145,15 @@ class PostController extends Controller
          ]);
     }
         // Save the input form data in the databse
-        $post = Post::find($id);
 
         $post->title= $request->input('title');
         $post->category_id = $request->input('category_id');
         $post->body = $request->input('body');
         $post->slug = $request->input('slug');
         $post->save();
+
+        /* Not including false as second argument */
+        $post->tags()->sync($request->tags);
 
         // Prepare flash message
         Session::flash('success','The Post was saved successfully!');
