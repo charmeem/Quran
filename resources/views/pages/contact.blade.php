@@ -10,7 +10,8 @@
                 {{--<p>Your suggestion, queries are welcome :</p>--}}
             </div>
 
-            <form action="">
+            <form action="{{url('contact')}}" method="POST">
+                @csrf
                 <div class="form-group">
                     <label name="email">E mail:</label>
                     <input id="email" type='email' name="email" class="form-control">
@@ -24,7 +25,6 @@
                 <div class="form-group">
                     <label name="message">Message:</label>
                     <textarea id="message" name="message" class="form-control">
-                        Type your message here ...
                     </textarea>
                 </div>
 
