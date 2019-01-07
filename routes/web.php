@@ -16,6 +16,8 @@
 Route::get('/', 'PagesController@getIndex');
 
 /* Route for blog with slugs*/
+/* The reason we donot use ::resource(blog) is that we want to associate slug with the blog
+   Where as ::resource will assoniate /{blog} with the blog */
 Route::get('blog/{slug}', ['as' => 'blog.single', 'uses' => 'BlogController@getSingle'])
         ->where('slug', '[\w\d\-\_]+');
 
@@ -48,3 +50,8 @@ Route::resource('categories', 'CategoryController', ['except'=>['create']]);
 
 /* Tags Route except create route*/
 Route::resource('tags', 'TagController', ['except'=>['create']]);
+
+/* Comments Route */
+/* The reason we donot use ::resource(comments) is that we want to */
+/*associate post_id with the commentsWhere as ::resource will assoniate /{comment} with the comments */
+Route::post('comment/{post_id}', ['as' => 'comments.store', 'uses' => 'CommentsController@store']);

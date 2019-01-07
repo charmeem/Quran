@@ -2,3 +2,25 @@
     background-color:#e9ecef;
     border-radius: .7rem;
 }
+.author-image {
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+}
+.author-date {
+    color:#aaa;
+    font-size:.7rem;
+    font-style:italic;
+    line-height:1;
+
+}
+.author-name{
+    margin-left:1em
+}
+.comment-content {
+    clear:both;
+    margin-left:4em;
+}
+.comment-form h5 {
+    margin-bottom:1em;
+}
