@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Category;
+use App\Http\Resources\Post\PostCollection;
+use App\Http\Resources\Post\PostResource;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
@@ -36,7 +38,10 @@ class PostController extends Controller
         //Redirect to view and pass in the above variable
         return view('posts.index')->withPosts($posts);
 
+
+
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -67,14 +72,14 @@ class PostController extends Controller
             'category_id' => 'required|max:255'
             ]);
 
-        // Store into database
+
         $post=new Post;
 
         $post->title = $request->title;
         $post->body = $request->body;
         $post->slug = $request->slug;
         $post->category_id = $request->category_id;
-
+        // Store into database
         $post->save();
 
         /* Storing the tags that are coming in create post Request */
@@ -101,6 +106,8 @@ class PostController extends Controller
         return view('posts.show', compact('post')); // I prefer this being more clean!!
 
     }
+
+
 
     /**
      * GET Edit page
@@ -177,3 +184,4 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 }
+

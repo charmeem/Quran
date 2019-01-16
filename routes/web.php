@@ -55,3 +55,4 @@ Route::resource('tags', 'TagController', ['except'=>['create']]);
 /* The reason we donot use ::resource(comments) is that we want to */
 /*associate post_id with the commentsWhere as ::resource will assoniate /{comment} with the comments */
 Route::post('comment/{post_id}', ['as' => 'comments.store', 'uses' => 'CommentsController@store']);
+

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Resources\Post\PostCollection;
+use App\Http\Resources\Post\PostResource;
+use App\Post;
 use Illuminate\Http\Request;
 
 /*
@@ -16,3 +19,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+/* Route to find all posts through api */
+Route::get('/posts', function(){
+    return PostCollection::collection(Post::all());
+});
+
+/* Route to find one post as in show method of controller */
+Route::get('posts/{id}', function($id){
+    return new PostResource(Post::find($id));
+});
+

@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron">
-                    <h1 class="display-4">Quran, Your Divine Guidance</h1>
+                    <h1 class="display-4">Quran, Your Divine Guidance.</h1>
 
                     <p class="lead">This is a humble effort to introduce us, the last divine Message send to
                         us through the last divine Prophet Muhammad (may Allah's peace and blessing upon him).</p>
