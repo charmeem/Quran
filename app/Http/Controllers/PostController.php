@@ -18,6 +18,8 @@ class PostController extends Controller
      */
     public function __construct()
     {
+        // changed this from auth to auth:api to set api authentication
+        // on all methods even show post
         $this->middleware('auth');
     }
 

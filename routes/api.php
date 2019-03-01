@@ -22,12 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 /* Route to find all posts through api */
-Route::get('/posts', function(){
+Route::middleware('auth:api')->get('/posts', function(Request $request){
+//    var_dump($request);
     return PostCollection::collection(Post::all());
 });
 
 /* Route to find one post as in show method of controller */
-Route::get('posts/{id}', function($id){
+Route::middleware('auth:api')->get('posts/{id}', function($id){
     return new PostResource(Post::find($id));
 });
 
